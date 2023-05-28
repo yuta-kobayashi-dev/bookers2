@@ -1,3 +1,5 @@
+<!--users show-->
+
 <div class="container px-5 px-sm-0">
   <div class="row">
     <%= render 'users/list', user: @user, book:@book_new %>
@@ -6,21 +8,25 @@
       <table class="table table-hover table-inverse">
         <thead>
           <tr>
+            <th></th>
             <th>Title</th>
             <th>Opinion</th>
             <th colspan ="3"></th>
           </tr>
         </thead>
         <tbody>
-          <%= @books.each do |book| %>
+          <% @books.each do |book| %>
           <tr>
-            <td><%= image_tag book.user.get_profile_image(100,100) %></td>
+            <td>
+            <%= link_to user_path(book.user.id) do %>
+              <%= image_tag book.user.get_profile_image(100,100) %></td>
+            <% end %>
             <td/>
             <%= link_to book_path(book.id) do %>
               <%= book.title %>
             <% end %>
             </td>
-            <td><%= book.title %></td>
+            <td><%= book.body %></td>
           </tr>
           <% end %>
         </tbody>

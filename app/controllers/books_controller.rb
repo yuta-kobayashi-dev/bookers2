@@ -5,11 +5,13 @@ class BooksController < ApplicationController
   end
   
   def create
-    @book = Book.new
-    @book.user_id = current_user.id
-    if @book.save
+    @book_new = Book.new(book_params)
+    @books = Book.all
+    @user = current_user
+    @book_new.user_id = current_user.id
+    if @book_new.save
       flash[:notice] = "you have created book successfully."
-      redirect_to @book
+      redirect_to @book_new
     else
       render :index
     end
@@ -25,7 +27,7 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
     @books = Book.all
     @book_new = Book.new
-    @user = current_user
+    @user = @book.user
   end
   
   def edit
@@ -51,7 +53,7 @@ class BooksController < ApplicationController
   private
   
   def book_params
-    params.require(:book).permit(:title, :body, :profile_image)
+    params.require(:book).permit(:title, :body)
   end
   
 end

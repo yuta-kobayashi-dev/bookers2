@@ -1,3 +1,5 @@
+<!--books show-->
+
 <div class="container px-5 px-sm-0">
   <div class="row">
     <%= render 'users/list', user:@user, book:@book_new %>
@@ -7,11 +9,9 @@
       <tbody>
         <tr>
           <td>
-            <%= link_to book_path do %> 
+            <%= link_to user_path(@user.id) do %> 
               <%= image_tag @book.user.get_profile_image(100,100) %></br>
-            <% if @book.user == current_user %>
               <%= @book.user.name %>
-            <% end %>
             <% end %>
           </td>
           <td>
@@ -22,16 +22,12 @@
           <td><%= @book.body %></td>
           <td>
           <% if @book.user == current_user %>
-            <button class="btn btn-sm btn-success">
-            <%= link_to "Edit", edit_book_path %></p>
-            </button>
+            <%= link_to "Edit", edit_book_path, class:"btn btn-sm btn-success" %>
           <% end %>
           </td>
           <td>
           <% if @book.user == current_user %>
-            <button data-confirm="本当に消しますか?" class="btn btn-sm btn-danger">
-            <%= link_to "Destroy", book_path, method: :delete %>
-            </button>
+            <%= link_to "Destroy", book_path, method: :delete, data: {confirm: "本当に削除しますか?"}, class:"btn btn-sm btn-danger" %>
           <% end %>
           </td>
         </tr>
